@@ -11,25 +11,30 @@ import prismadb from "@/lib/prismadb";
 
 dotenv.config({ path: `.env` });
 
+// `chat/:chatid` {params} 
 export async function POST(
   request: Request,
   { params }: { params: { chatId: string } }
 ) {
   try {
+
+    // first query by the user
     const { prompt } = await request.json();
     const user = await currentUser();
 
     if (!user || !user.firstName || !user.id) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
+   
+    // unique id just for ratelimit
     const identifier = request.url + "-" + user.id;
     const { success } = await rateLimit(identifier);
 
     if (!success) {
       return new NextResponse("Rate limit exceeded", { status: 429 });
     }
-
+   
+    // push a new message to companian message field
     const companion = await prismadb.companion.update({
       where: {
         id: params.chatId

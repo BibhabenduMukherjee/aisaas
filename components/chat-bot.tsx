@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import { Separator } from './ui/separator'
 import { useChatBotModel } from '@/hooks/use-chatbot'
 import { Input } from './ui/input'
+import  AiChatMessage  from './AiChatMessage'
 function ChatBot() {
     const chatModal = useChatBotModel()
     const [isMounted, setIsMounted] = useState(false);
@@ -33,9 +34,10 @@ function ChatBot() {
         </DialogHeader>
         <Separator />
         <div className="flex flex-col max-w-lg ">
-          
+        <AiChatMessage/>
          <div className="flex w-full items-center space-x-2">
          <Input type="email" placeholder="Email" />
+         
         <Button type="submit">Ask</Button>
          </div>
         
