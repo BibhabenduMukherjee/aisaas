@@ -2,16 +2,16 @@ steps:
   # Step 1: Checkout the source code from your repository.
   - name: 'node'
     entrypoint: 'bash'
-    args: ['-c', 'cd /aisaas && npm install']
+    args: ['-c', 'npm install']
 
   - name: 'node'
     entrypoint: 'bash'
-    args: ['-c', 'cd /aisaas && npx prisma db push']
+    args: ['-c', 'npx prisma db push']
 
   # Step 2: Build the Next.js application.
   - name: 'node'
     entrypoint: 'bash'
-    args: ['-c', 'cd /aisaas && npm run build']
+    args: ['-c', 'npm run build']
 
   # Step 3: Build the Docker image.
   - name: 'gcr.io/cloud-builders/docker'
