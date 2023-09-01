@@ -1,0 +1,29 @@
+steps:
+  # Step 1: Checkout the source code from your repository.
+  - name: 'node'
+    entrypoint: 'bash'
+    args: ['-c', 'cd /workspace/repo && npm install']
+
+  - name: 'node'
+    entrypoint: 'bash'
+    args: ['-c', 'cd /workspace/repo && npx prisma db push']
+
+  # Step 2: Build the Next.js application.
+  - name: 'node'
+    entrypoint: 'bash'
+    args: ['-c', 'cd /workspace/repo && npm run build']
+
+  # Step 3: Build the Docker image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/pacific-diode-396304/your-nextjs-app:latest', '.']
+
+  # Step 4: Push the Docker image to Google Container Registry (GCR).
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest']
+
+  
+
+# Define environment variables to be passed into the build.
+
+ 
+  
