@@ -5,6 +5,28 @@ steps:
     args: ['-c', 'npm install']
   - name: 'node'
     entrypoint: 'bash'
+    args: ['-c', 'npm run create-env']
+    env:
+      - 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${_NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}'
+      - 'CLERK_SECRET_KEY=${_CLERK_SECRET_KEY}'
+      - 'NEXT_PUBLIC_CLERK_SIGN_IN_URL=${_NEXT_PUBLIC_CLERK_SIGN_IN_URL}'
+      - 'NEXT_PUBLIC_CLERK_SIGN_UP_URL=${_NEXT_PUBLIC_CLERK_SIGN_UP_URL}'
+      - 'NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=${_NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL}'
+      - 'NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=${_NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL}'
+      - 'OPENAI_API_KEY=${_OPENAI_API_KEY}'
+      - 'REPLICATE_API_TOKEN=${_REPLICATE_API_TOKEN}'
+      - 'UPSTASH_REDIS_REST_URL=${_UPSTASH_REDIS_REST_URL}'
+      - 'UPSTASH_REDIS_REST_TOKEN=${_UPSTASH_REDIS_REST_TOKEN}'
+      - 'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${_NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}'
+      - 'PINECONE_API_KEY=${_PINECONE_API_KEY}'
+      - 'PINECONE_ENVIRONMENT=${_PINECONE_ENVIRONMENT}'
+      - 'PINECONE_INDEX=${_PINECONE_INDEX}'
+      - 'DATABASE_URL=${_DATABASE_URL}'
+      - 'STRIPE_API_KEY=${_STRIPE_API_KEY}'
+      - 'NEXT_PUBLIC_APP_URL=${_NEXT_PUBLIC_APP_URL}'
+      - 'STRIPE_WEBHOOK_SECRET=${_STRIPE_WEBHOOK_SECRET}'
+  - name: 'node'
+    entrypoint: 'bash'
     args: ['-c', 'npx prisma generate']
   
   - name: 'node'
@@ -18,11 +40,11 @@ steps:
 
   # Step 3: Build the Docker image.
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/pacific-diode-396304/your-nextjs-app:latest', '.']
+    args: ['build', '-t', 'gcr.io/pacific-diode-396304/ai-com:latest', '.']
 
   # Step 4: Push the Docker image to Google Container Registry (GCR).
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest']
+    args: ['push', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run']
 
   
 
