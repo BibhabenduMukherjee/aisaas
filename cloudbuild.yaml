@@ -40,7 +40,7 @@ steps:
 
   # Step 3: Build the Docker image.
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'ai-com:latest', '.']
+    args: ['build', '-t', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest', '.']
 
   # Step 4: Push the Docker image to Google Container Registry (GCR).
   - name: 'gcr.io/cloud-builders/docker'
