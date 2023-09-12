@@ -26,15 +26,17 @@ const CompanionIdPage = async ({
   // if (!validSubscription) {
   //   return redirect("/");
   // }
-
+  //console.log(params)
   const companion = await prismadb.companion.findUnique({
     where: {
       id: params.companionId,
       userId,
     }
   });
+  //console.log(companion)
 
   const categories = await prismadb.category.findMany();
+ // console.log(categories)
 
   return ( 
     <CompanionForm initialData={companion} categories={categories} />
