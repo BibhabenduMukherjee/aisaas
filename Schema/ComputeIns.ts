@@ -6,5 +6,10 @@ export const ComputeInsSchema = z.object({
     description: z.string().min(1, {
       message: "Description is required.",
     }),
-    
+    zone: z.string().min(1,{
+      message: "Zone is required.",
+    }),
+    machineType : z.string().min(1,{message: "Machine type is required"}),
+    sourceImage : z.string().min(1,{message: "Source image is required"}),
+    ssd : z.string().min(1, {message: "SSD is required"})
   });

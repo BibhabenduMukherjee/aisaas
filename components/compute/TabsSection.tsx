@@ -5,6 +5,7 @@ import { ButtonGroup, Button } from "@material-tailwind/react";
 import { useCreateCompute, useStatusCompute } from "@/hooks/use-compute";
 import { cn } from "@/lib/utils";
 import CreateComputeForm from "./CreateComputeForm";
+import Status from "../Status";
 
 function TabsSection() {
     const CreateCompute = useCreateCompute()
@@ -36,11 +37,18 @@ function TabsSection() {
       <div className = "flex flex-col">
 
       {CreateCompute.isOpenCreate && <>
+         <div className = "">
          <CreateComputeForm/>
+         </div>
+        
       </>}
 
       {StatusCompute.isOpenStatus && <>
-       hello status
+     
+        <div className = " ">
+         <Status/>
+         </div>
+        
       </>}
       </div>
 

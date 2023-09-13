@@ -5,9 +5,83 @@ import * as z from "zod"
 import { ComputeInsSchema } from '@/Schema/ComputeIns'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import { Button } from '../ui/button'
+import { Server, Wand2 } from "lucide-react";
 
+const zones = [
+  {
+    title : "Mumbai-1",
+    name : "asia-south1-a",
+  },
+  {
+    title : "Mumbai-2",
+    name : "asia-south1-b",
+  },
+  {
+    title : "Delhi-1",
+    name : "asia-south2-a",
+  },
+  {
+    title : "Delhi-2",
+    name : "asia-south2-b",
+  }
+]
 
+const sourceImage = [
+  {
+    title : "Debian GNU/Linux 11 ARC X86/64",
+    name : "projects/debian-cloud/global/images/debian-11-bullseye-v20230814"
+  },
+  {
+    title : "Ubuntu 20.04 LTS Focal X86/64",
+    name : "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20230817",
+  },
+  {  
+    title : "Ubuntu 20.04 LTS Jimmy X86/64",
+    name : "projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20230727",
 
+  },
+  {  
+    title : "Windows Server 2022 X86/64 ",
+    name : "projects/windows-cloud/global/images/windows-server-2022-dc-core-v20230809"
+  }
+]
+const Ssd = [
+  {
+    title : "40 gb",
+    name : "40",
+  },
+  {
+    title: "60 gb",
+    name : "60",
+  },
+  {
+    title : "100 gb",
+    name : "100"
+  }
+]
+const machineTypes = [
+  {
+    title : "Standard (1cpu)",
+    name : "n1-standard-1 ",
+  },
+  {
+    title : "Standard (2cpu)",
+    name : "n1-standard-2",
+  },
+  {
+    title : "Balanced (4cpu)",
+    name : "n1-standard-4",
+  },
+  {
+    title : "Compute Optimised (8cpu)",
+    name : "n1-standard-8",
+  },
+  {title: "High Memory/Ram (52gb)",
+   name : "n1-highmem-8"
+}
+]
 
 function CreateComputeForm() {
  const form = useForm<z.infer<typeof ComputeInsSchema>>(
@@ -15,7 +89,11 @@ function CreateComputeForm() {
         resolver:zodResolver(ComputeInsSchema),
         defaultValues: {
             name : "Instance1",
-            description : ""
+            description : "",
+            zone: undefined,
+            machineType : undefined,
+            sourceImage:undefined,
+            ssd : undefined,
         }
     }
  )
@@ -30,8 +108,8 @@ function CreateComputeForm() {
     <div className=" flex flex-col mx-auto ">
         <p className="mb-[10px] text-2xl mt-[30px] text-center ">Create an Instance</p>
        <Form {...form}>
-         <form onSubmit =  {form.handleSubmit(onSubmit)}></form>
-              <div className = " p-4 mt-[22px]  grid grid-cols-1 md:grid-cols-2 gap-4">
+         <form className="p-4 mt-4"  onSubmit =  {form.handleSubmit(onSubmit)}>
+         <div className = " p-4 mt-[22px]  grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
               <FormField
               name="name"
               control={form.control}
@@ -55,7 +133,7 @@ function CreateComputeForm() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input disabled={isLoading} autoComplete='off'  placeholder="CEO & Founder of Tesla, SpaceX" {...field} />
+                    <Input disabled={isLoading} autoComplete='off'  placeholder="Compute Instance" {...field} />
                   </FormControl>
                   <FormDescription>
                     Short description for your AI Companion
@@ -64,8 +142,120 @@ function CreateComputeForm() {
                 </FormItem>
               )}
             />
+             <FormField
+              control={form.control}
+              name="zone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <Select disabled={isLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue defaultValue={field.value} placeholder="Select a Location" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {zones.map((z) => (
+                        <SelectItem key={z.name} value={z.name}>{z.title}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Select the Location 
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+             <FormField
+              control={form.control}
+              name="machineType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>MachineType</FormLabel>
+                  <Select disabled={isLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue defaultValue={field.value} placeholder="Select a MachineType" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {machineTypes.map((z) => (
+                        <SelectItem key={z.name} value={z.name}>{z.title}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Select the MachineType 
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+
+<FormField
+              control={form.control}
+              name="sourceImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>SourceImage</FormLabel>
+                  <Select disabled={isLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue defaultValue={field.value} placeholder="Select a SourceImage" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {sourceImage.map((z) => (
+                        <SelectItem key={z.name} value={z.name}>{z.title}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Select the SourceImage
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
+
+<FormField
+              control={form.control}
+              name="ssd"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>SSD</FormLabel>
+                  <Select disabled={isLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue defaultValue={field.value} placeholder="Select a SSD" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Ssd.map((z) => (
+                        <SelectItem key={z.name} value={z.name}>{z.title}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Select the SSD
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+              />
             </div> 
+
+            <div className="w-full flex h-[200px]  justify-center">
+            <Button className="mt-6"   size="lg" disabled={isLoading}>
+              { "Create Instance"}
+              <Server className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+         </form>
+             
        </Form>
+       <div className = ""></div>
     </div>
   )
 }
