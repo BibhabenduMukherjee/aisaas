@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Button } from '../ui/button'
 import { Server, Wand2 } from "lucide-react";
+import axios from 'axios'
+import { useComputeStatus } from '@/hooks/use-status'
 
 const zones = [
   {
@@ -37,15 +39,8 @@ const sourceImage = [
     title : "Ubuntu 20.04 LTS Focal X86/64",
     name : "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20230817",
   },
-  {  
-    title : "Ubuntu 20.04 LTS Jimmy X86/64",
-    name : "projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20230727",
+ 
 
-  },
-  {  
-    title : "Windows Server 2022 X86/64 ",
-    name : "projects/windows-cloud/global/images/windows-server-2022-dc-core-v20230809"
-  }
 ]
 const Ssd = [
   {
@@ -64,26 +59,25 @@ const Ssd = [
 const machineTypes = [
   {
     title : "Standard (1cpu)",
-    name : "n1-standard-1 ",
+    name : "n2-standard-1",
   },
   {
     title : "Standard (2cpu)",
-    name : "n1-standard-2",
+    name : "n2-standard-2",
   },
   {
     title : "Balanced (4cpu)",
-    name : "n1-standard-4",
+    name : "e2-standard-4",
   },
   {
     title : "Compute Optimised (8cpu)",
-    name : "n1-standard-8",
+    name : "e1-standard-8",
   },
-  {title: "High Memory/Ram (52gb)",
-   name : "n1-highmem-8"
-}
+ 
 ]
 
 function CreateComputeForm() {
+  const status = useComputeStatus()
  const form = useForm<z.infer<typeof ComputeInsSchema>>(
     {
         resolver:zodResolver(ComputeInsSchema),
@@ -102,6 +96,18 @@ function CreateComputeForm() {
  const isLoading = form.formState.isSubmitting;
 
  const onSubmit = async (values: z.infer<typeof ComputeInsSchema>) => {
+  try{
+   status.setRequestStatus("Running...")
+  
+  // const response =  axios.post("api/v1/createvm",values); // http://localhost:8080/api/v1/fake  --> api/v1/createvm
+   // console.log(response)
+   const res = await axios.get("/api/fake")
+    status.setRequestStatus("Completed")
+  }catch(err){
+    console.log(err);
+    
+  }
+  //console.log(values)
    
  };
   return (
