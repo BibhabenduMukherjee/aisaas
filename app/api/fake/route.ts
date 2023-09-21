@@ -7,7 +7,7 @@ export async function GET(request: Request)
 
     try{
         try{
-            await db.set("user:bivu:ins:node" , "running")
+            await db.set("user:bivu:ins:node" , "Running")
         }catch(err){
             console.log(err);
             return new NextResponse("INTERNAL_ERROR" , {status : 400})
@@ -15,7 +15,7 @@ export async function GET(request: Request)
         }
        // await db.sadd("user:bivu:ins:node" , "running")
         const res = await axios.get("http://localhost:8080/api/v1/fake")
-        await db.set("user:bivu:ins:node" , "completed")
+        await db.set("user:bivu:ins:node" , "Completed")
         console.log("added");
         
         return new NextResponse("ok" , {status : 200})

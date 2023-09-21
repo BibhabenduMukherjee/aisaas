@@ -131,7 +131,8 @@ export const ChatMessage = ({
                   size="icon"
                   variant="ghost"
                 >
-                  <Nfc className="w-4 h-4" />
+
+                 {textMode === "1" ? <Nfc className="w-4 h-4" /> : <Copy className="w-4 h-4" />} 
 
                   <div>
                     {audioData && <audio ref={audioRef} className=""></audio>}

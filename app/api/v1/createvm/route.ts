@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { currentUser } from "@clerk/nextjs";
+import { db } from "@/lib/redis";
 const ap = process.env.COMPUTE_AUTH_TOKEN!;
 
   
@@ -15,15 +16,18 @@ export   async function POST(request: Request)
    const body = await request.json();
    const reqq = {...body,userid:user.id,userFirstname:user.firstName}
    //console.log({...body,userid:user.id,userFirstname:user.firstName});
-   console.log(reqq);
+   //console.log(reqq);
    
    try{
-    const response = axios.post("http://localhost:8080/api/v1/createvm" , reqq , {
+    await db.set("user:bivu:ins:node1","Running")
+    const response = await axios.post("http://localhost:8080/api/v1/createvm" , reqq , {
         headers : {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + ap
         }
     }); 
+    await db.set("user:bivu:ins:node1","Completed")
+
     console.log((await response).data)
     return new NextResponse("ok" , {status:200})
    }catch(err){

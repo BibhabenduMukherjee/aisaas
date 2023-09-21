@@ -5,20 +5,23 @@ import { db } from '@/lib/redis';
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 function Status() {
-     const [s, sS] = useState<String>("");
-     const status =useComputeStatus();
+      //const status =useComputeStatus();
+     const [s, sS] = useState<String>("initiating..");
+     
      
      useEffect(()=>{
        const timeid = setInterval(async ()=>{
-      // const d = (await DbAccessRest("get" , "user:bivu:ins:node")) 
-      //   console.log(d)
-      // const d = await db.get("user:bivu:ins:node")
-      // console.log(d);
-      
+         const d = (await DbAccessRest("get" , "user:bivu:ins:node1")) as string
+         console.log(d);
+         
+        sS(d)
+        if(d === "Completed"){
+          clearInterval(timeid)
+        }
       
       
        
-       },1000)
+       },1200)
 
        return ()=>{
         clearInterval(timeid);

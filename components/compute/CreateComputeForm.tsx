@@ -59,7 +59,7 @@ const Ssd = [
 const machineTypes = [
   {
     title : "Standard (1cpu)",
-    name : "n2-standard-1",
+    name : "n1-standard-1",
   },
   {
     title : "Standard (2cpu)",
@@ -97,12 +97,11 @@ function CreateComputeForm() {
 
  const onSubmit = async (values: z.infer<typeof ComputeInsSchema>) => {
   try{
-   status.setRequestStatus("Running...")
+   //status.setRequestStatus("Running...")
   
-  // const response =  axios.post("api/v1/createvm",values); // http://localhost:8080/api/v1/fake  --> api/v1/createvm
-   // console.log(response)
-   const res = await axios.get("/api/fake")
-    status.setRequestStatus("Completed")
+    const response =  await axios.post("api/v1/createvm",values); // http://localhost:8080/api/v1/fake  --> api/v1/createvm
+   console.log(response.data)
+   // status.setRequestStatus("Completed")
   }catch(err){
     console.log(err);
     

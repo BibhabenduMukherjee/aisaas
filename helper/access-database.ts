@@ -1,6 +1,5 @@
-const upstashRedisRestUrl = process.env.NEW_UPSTASH_REDIS_REST_URL_EXE!
-const ss = process.env.NEW_UPSTASH_REDIS_REST_TOKEN_EXE!
-
+const upstashRedisRestUrl =  process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL_EXE
+const ss = process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN_EXE
 type Command = 'zrange' | 'sismember' | 'get' | 'smembers'
 
 export async function DbAccessRest(

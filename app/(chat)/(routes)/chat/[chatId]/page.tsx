@@ -41,6 +41,7 @@ const ChatIdPage = async ({
     }
   });
 
+  // console.log(companion)
 
   if (!companion) {
     return redirect("/");
