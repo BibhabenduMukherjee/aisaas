@@ -6,8 +6,39 @@ import { useCreateCompute, useStatusCompute } from "@/hooks/use-compute";
 import { cn } from "@/lib/utils";
 import CreateComputeForm from "./CreateComputeForm";
 import Status from "../Status";
+interface Ins {
+  id: string,
+  name:  string,
+  userId: string,
+  fingerprint: string,
+  status: string,
+  zone: string
+  creationTimestamp: string
+  networkInterfacesName: string,
+  natIp: string,
+  networkInterfacesAccessName: string,
+  diskType: string,
+  diskMode:string,
+  diskSize:string,
+  architecture: string,
+  cpuPlatform: string,
+  deletionProtection: boolean
+}
 
-function TabsSection() {
+interface PageProps{
+  userId : string,
+  createdAt : string,
+  updatedAt : string,
+  userName : string,
+  instances : Ins[]
+};
+interface PagePropss{
+  data : PageProps
+}
+
+const  TabsSection = ({data} : PagePropss) => {
+    //console.log(data);
+    
     const CreateCompute = useCreateCompute()
     const StatusCompute = useStatusCompute()
 
@@ -46,7 +77,7 @@ function TabsSection() {
       {StatusCompute.isOpenStatus && <>
      
         <div className = " ">
-         <Status/>
+         <Status  data ={data} />
          </div>
         
       </>}

@@ -100,7 +100,7 @@ function CreateComputeForm() {
    //status.setRequestStatus("Running...")
   
     const response =  await axios.post("api/v1/createvm",values); // http://localhost:8080/api/v1/fake  --> api/v1/createvm
-   console.log(response.data)
+  // console.log(response.data)
    // status.setRequestStatus("Completed")
   }catch(err){
     console.log(err);

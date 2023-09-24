@@ -60,7 +60,7 @@ model ComputeIns{
 userId  String    @id 
 createdAt     DateTime @default(now())
 updatedAt     DateTime @updatedAt
-userName String 
+userName String  @db.Text()
 instances Instance[]
 
 
@@ -68,12 +68,22 @@ instances Instance[]
 
 
 model Instance {
-id String  @id @default(uuid())
-name String
+id String  @id 
+name String  
 userId String
-description  String
+fingerprint String
+status String
 zone String
-computeinsId String
+creationTimestamp String
+networkInterfacesName String
+natIp String 
+networkInterfacesAccessName String
+diskType String
+diskMode String
+diskSize String
+architecture String
+cpuPlatform String
+deletionProtection Boolean
 computeins ComputeIns @relation(fields: [userId] , references: [userId], onDelete : Cascade)
 @@index([userId])
 }

@@ -4,7 +4,37 @@ import { useComputeStatus } from '@/hooks/use-status'
 import { db } from '@/lib/redis';
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-function Status() {
+
+interface Ins {
+  id: string,
+  name:  string,
+  userId: string,
+  fingerprint: string,
+  status: string,
+  zone: string
+  creationTimestamp: string
+  networkInterfacesName: string,
+  natIp: string,
+  networkInterfacesAccessName: string,
+  diskType: string,
+  diskMode:string,
+  diskSize:string,
+  architecture: string,
+  cpuPlatform: string,
+  deletionProtection: boolean
+}
+
+interface PageProps{
+  userId : string,
+  createdAt : string,
+  updatedAt : string,
+  userName : string,
+  instances : Ins[]
+};
+interface PagePropss{
+  data : PageProps
+}
+function Status({data} : PagePropss) {
       //const status =useComputeStatus();
      const [s, sS] = useState<String>("initiating..");
      
@@ -29,7 +59,13 @@ function Status() {
      },[])
   return (
     <div className="flex flex-col mx-auto">
-      {s}
+      {data && <div>
+             {data.instances.map((item)=>(
+              <div className="mt-[8px]" key={item.id}>
+                <p>{item.name}</p>
+              </div>
+             ))}
+        </div>}
     </div>
   )
   }
