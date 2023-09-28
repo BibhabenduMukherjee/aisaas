@@ -13,10 +13,17 @@ export const SearchInput = () => {
   const searchParams = useSearchParams();
 
   const categoryId = searchParams.get("categoryId");
+  // initial value ""
   const name = searchParams.get("name");
 
   const [value, setValue] = useState(name || "");
   const debouncedValue = useDebounce<string>(value, 500);
+  //console.log(debouncedValue);
+  
+   // input --- user type something on the inbox with in 500ms ---  onChanged - setValue(inputValue)
+   // after that we pass this same value to the useDebounce() method stop for 500ms -- > return the string 
+   // for searching 
+
 
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -35,6 +42,8 @@ export const SearchInput = () => {
     }, { skipNull: true, skipEmptyString: true });
 
     router.push(url);
+    //console.log(url);
+    
   }, [debouncedValue, router, categoryId])
 
   return (
