@@ -45,6 +45,7 @@ interface PageProps {
 }
 interface PagePropss {
   data: PageProps;
+  user :string
 }
 function dateFormat(date: string): string {
   const new_date = new Date(date).toLocaleDateString();
@@ -55,21 +56,21 @@ function refreshPage(){
   location.reload();
 }
 
-function Status({ data }: PagePropss) {
+function Status({ data , user }: PagePropss) {
   const status =useComputeStatus();
   const [s, sS] = useState<String>(status.reqStatus);
   const router = useRouter();
   useEffect(() => {
     const timeid = setInterval(async () => {
-     // const d = (await DbAccessRest("get", "user:bivu:ins:node1")) as string;
-      //console.log(d);
+     const d = (await DbAccessRest("get", `user:${user}:ins`)) as string;
+      console.log(d);
 
-    //  sS(d);
-      // if (d === "Completed") {
-      //   clearInterval(timeid);
-      //   status.setRequestStatus("")
+     sS(d);
+      if (d === "Completed") {
+        clearInterval(timeid);
+        status.setRequestStatus("")
        
-      // }
+      }
     }, 1200);
 
     return () => {
@@ -78,7 +79,7 @@ function Status({ data }: PagePropss) {
   }, []);
   return (
     <div className="flex flex-col max-w-7xl mx-auto overflow-x-auto">
-      {s.length != 0 && s ==="Running" && <div className="max-w-6xl mx-auto p-4  w-full mt-8 bg-gray-600/30 animate-pulse"> 
+      {s  && s ==="Running" && <div className="max-w-6xl mx-auto p-4  w-full mt-8 bg-gray-600/30 animate-pulse"> 
                    {s} 
         </div>}
         <div className="mt-5 ml-10 md:ml-0"> 

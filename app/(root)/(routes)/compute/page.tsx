@@ -21,12 +21,12 @@ async  function page() {
     }
   })
   //@ts-ignore
-  console.log(computeins);
+  //console.log(computeins);
   return (
     <div className = "flex flex-col space-y-2 ">
       <Upper/>
       {/* @ts-ignore */}
-	  <TabsSection data={computeins} />
+	  <TabsSection data={computeins} user = {user?.id}  />
     </div>
   );
 }

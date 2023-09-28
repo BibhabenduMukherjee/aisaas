@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
       try{
          response = await axios.post(
-            "https://dev---ai-com-backend-b7n2k6yp7a-uc.a.run.app/api/v1/createvm",
+            "https://ai-com-backend-1-b7n2k6yp7a-uc.a.run.app/api/v1/createvm",
             reqq,
             {
               headers: {
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
       }
 
     
-    await db.set("user:bivu:ins:node1", "Completed");
+    await db.set(`user:${user.id}:ins`, "Completed");
     const response_data: ComputeIns = response?.data;
 
     // check the current user have any instances already?

@@ -97,11 +97,10 @@ function CreateComputeForm() {
 
  const onSubmit = async (values: z.infer<typeof ComputeInsSchema>) => {
   try{
-   //status.setRequestStatus("Running...")
-  
+    status.setRequestStatus("Running...")
     const response =  await axios.post("api/v1/createvm",values); // http://localhost:8080/api/v1/fake  --> api/v1/createvm
   // console.log(response.data)
-   // status.setRequestStatus("Completed")
+   status.setRequestStatus("Completed")
   }catch(err){
     console.log(err);
     

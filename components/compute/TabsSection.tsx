@@ -34,10 +34,11 @@ interface PageProps{
 };
 interface PagePropss{
   data : PageProps
+  user : string
 }
 
-const  TabsSection = ({data} : PagePropss) => {
-    //console.log(data);
+const  TabsSection = ({data , user} : PagePropss) => {
+    //console.log(user);
     
     const CreateCompute = useCreateCompute()
     const StatusCompute = useStatusCompute()
@@ -77,7 +78,7 @@ const  TabsSection = ({data} : PagePropss) => {
       {StatusCompute.isOpenStatus && <>
      
         <div className = " ">
-         <Status  data ={data} />
+         <Status  data ={data} user = {user} />
          </div>
         
       </>}
