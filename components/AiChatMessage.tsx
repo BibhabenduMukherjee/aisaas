@@ -16,7 +16,7 @@ function AiChatMessage({messages , isLoading}:{messages : ChatMessageProps[] , i
     }
   },[])
   return (
-    <div className = "flex-1 max-h-[400px]  justify-center overflow-scroll    mb-6">
+    <div className = "flex-1  justify-center overflow-scroll    mb-6">
      <ChatMessage  textMode="1"   isLoading={fakeLoading} content='This is AI Assistant for you' role = "system"/>
      {/* loop over the actual help conversaion */}
      {messages.map((item)=>(

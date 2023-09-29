@@ -88,18 +88,19 @@ export const ChatMessage = ({
   return (
     <div
       className={cn(
-        "group flex items-start gap-x-2 max-w-2xl   py-4 w-full",
+        "group flex items-start space-x-2    py-4 w-full",
         role === "user" && "justify-end"
       )}
     >
       {role !== "user" && src && <BotAvatar src={src} />}
-      <div className="rounded-md px-4 py-2 max-w-sm text-sm bg-primary/10">
+      <div className="rounded-md px-2 py-2 max-w-sm text-sm bg-primary/10">
         {isLoading ? (
-          <BeatLoader color={theme === "light" ? "black" : "white"} size={5} />
+          <BeatLoader color={theme === "light" ? "black" : "white"} size={4} />
         ) : (
           <p className="text-sm">{content}</p>
         )}
       </div>
+
       {role === "user" && <UserAvatar />}
       {role !== "user" && !isLoading && !isSpeackAble ? (
         <>
@@ -108,11 +109,15 @@ export const ChatMessage = ({
           ) : (
             <Button
               onClick={onCopy}
-              className="opacity-0 group-hover:opacity-100 transition"
+              className={cn(
+                textMode === "1"
+                  ? "opacity-0 cursor-default"
+                  : "opacity-0 group-hover:opacity-100 transition"
+              )}
               size="icon"
               variant="ghost"
             >
-              <Copy className="w-4 h-4" />
+              {textMode === "1" ? "" : <Copy className="w-4 h-4" />}
             </Button>
           )}
         </>
@@ -127,12 +132,19 @@ export const ChatMessage = ({
               ) : (
                 <Button
                   onClick={handleSpeaker}
-                  className="opacity-0 group-hover:opacity-100 transition"
+                  className={cn(
+                    textMode === "1" && role === "user"
+                      ? "opacity-0 cursor-defalut"
+                      : "opacity-0 group-hover:opacity-100 transition"
+                  )}
                   size="icon"
                   variant="ghost"
                 >
-
-                 {textMode === "1" ? <Nfc className="w-4 h-4" /> : <Copy className="w-4 h-4" />} 
+                  {textMode === "1" ? (
+                    <>{role != "user" && <Nfc className="w-4 h-4" />}</>
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
 
                   <div>
                     {audioData && <audio ref={audioRef} className=""></audio>}
@@ -143,6 +155,7 @@ export const ChatMessage = ({
           )}
         </>
       )}
+
       {role !== "user" && !isLoading && audioData ? (
         <Button
           onClick={() => {
@@ -159,6 +172,7 @@ export const ChatMessage = ({
       ) : (
         ""
       )}
+
       {role !== "user" && !isLoading && isSpeackOn && (
         <Button
           className="opacity-0 group-hover:opacity-100 transition"
