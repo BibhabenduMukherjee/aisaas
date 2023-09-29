@@ -76,7 +76,7 @@ function Status({ data , user }: PagePropss) {
     return () => {
       clearInterval(timeid);
     };
-  }, []);
+  }, [status,user]);
   return (
     <div className="flex flex-col max-w-7xl mx-auto overflow-x-auto">
       {s  && s ==="Running" && <div className="max-w-6xl mx-auto p-4  w-full mt-8 bg-gray-600/30 animate-pulse"> 

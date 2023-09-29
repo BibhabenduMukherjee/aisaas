@@ -34,9 +34,6 @@ steps:
     args: ['-c', 'npx prisma db push']
 
   # Step 2: Build the Next.js application.
-  - name: 'node'
-    entrypoint: 'bash'
-    args: ['-c', 'npm run build']
 
   # Step 3: Build the Docker image.
   - name: 'gcr.io/cloud-builders/docker'
