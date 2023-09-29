@@ -3,10 +3,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN yarn install
 COPY . .
-
+RUN npm run create-env
 RUN npx prisma db push
-RUN npm run build
+RUN yarn run build
 EXPOSE 8080
-CMD ["npm" , "start"]
+CMD ["yarn" , "start"]
 
 
