@@ -23,7 +23,7 @@ export const Companions = ({
           <Image
             fill
             className="grayscale"
-            src="/empty.png"
+            src="https://cdn.sanity.io/images/l2tpt56d/production/6c37758838d3994dd75c8727f20d1ec0d8525f30-2160x2160.png"
             alt="Empty"
           />
         </div>
