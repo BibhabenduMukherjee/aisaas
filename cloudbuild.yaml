@@ -46,7 +46,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest']
 
-  
+artifacts:
+  # Define where the build artifacts are located
+  objects:
+    location: 'nextjs-build/'
 
 # Define environment variables to be passed into the build.
 
