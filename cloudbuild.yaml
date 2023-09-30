@@ -30,6 +30,7 @@ steps:
     args: ['-c', 'npx prisma generate']
   
   - name: 'node'
+  
     entrypoint: 'bash'
     args: ['-c', 'npx prisma db push']
 
