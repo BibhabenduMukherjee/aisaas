@@ -2,9 +2,6 @@ steps:
   # Step 1: Checkout the source code from your repository.
   - name: 'node'
     entrypoint: 'bash'
-    args: ['-c', 'npm install']
-  - name: 'node'
-    entrypoint: 'bash'
     args: ['-c', 'npm run create-env']
     env:
       - 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${_NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}'
@@ -25,19 +22,7 @@ steps:
       - 'STRIPE_API_KEY=${_STRIPE_API_KEY}'
       - 'NEXT_PUBLIC_APP_URL=${_NEXT_PUBLIC_APP_URL}'
       - 'STRIPE_WEBHOOK_SECRET=${_STRIPE_WEBHOOK_SECRET}'
-  - name: 'node'
-    entrypoint: 'bash'
-    args: ['-c', 'npx prisma generate']
-  
-  - name: 'node'
 
-    entrypoint: 'bash'
-    args: ['-c', 'npx prisma db push']
-
-  # Step 2: Build the Next.js application.
-  - name: 'node'
-    entrypoint: 'bash'
-    args: ['-c', 'npm run build']
   # Step 3: Build the Docker image.
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest', '.']
@@ -45,11 +30,6 @@ steps:
   # Step 4: Push the Docker image to Google Container Registry (GCR).
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest']
-
-artifacts:
-  # Define where the build artifacts are located
-  objects:
-    location: 'nextjs-build/'
 
 # Define environment variables to be passed into the build.
 

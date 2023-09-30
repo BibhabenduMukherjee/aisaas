@@ -1,10 +1,12 @@
 FROM node:lts
 WORKDIR /app
-COPY nextjs-build/ ./public/
 COPY package*.json ./
-RUN yarn install
+RUN npm install
 COPY . .
-
+COPY .env ./
+RUN npx prisma generate
+RUN npx prisma db push
+RUN npm run build
 EXPOSE 8080
 CMD ["yarn" , "start"]
 
