@@ -30,12 +30,14 @@ steps:
     args: ['-c', 'npx prisma generate']
   
   - name: 'node'
-  
+
     entrypoint: 'bash'
     args: ['-c', 'npx prisma db push']
 
   # Step 2: Build the Next.js application.
-
+  - name: 'node'
+    entrypoint: 'bash'
+    args: ['-c', 'npm run build']
   # Step 3: Build the Docker image.
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-west2-docker.pkg.dev/pacific-diode-396304/ai-com-gcp-run/ai-com:latest', '.']

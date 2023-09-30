@@ -1,9 +1,10 @@
-FROM node:18.12.0
+FROM node:lts
 WORKDIR /app
+COPY nextjs-build/ ./public/
 COPY package*.json ./
 RUN yarn install
 COPY . .
-RUN yarn run build
+
 EXPOSE 8080
 CMD ["yarn" , "start"]
 
